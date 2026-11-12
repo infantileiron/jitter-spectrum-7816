@@ -14,11 +14,13 @@ def execute(id):
   run.status="running";db.commit()
   try:
    study=db.get(SpectralStudy,run.study_id);window=db.get(SamplingWindow,study.window_id);dataset=db.get(SignalDataset,window.dataset_id)
-   run.result=analyze(points_for(dataset,window),study);run.status="completed"
+   run.result=analyze(run.input_points or points_for(dataset,window),study);run.status="completed"
   except Exception as e:run.error=str(e);run.status="failed";traceback.print_exc()
   db.commit()
-with Session() as db:
- for id in db.scalars(select(SpectralRun.id).where(SpectralRun.status.in_(["queued","running"]))):client.lpush("jitter-spectrum:jobs",id)
-while True:
- heartbeat.touch();job=client.brpop("jitter-spectrum:jobs",timeout=1)
- if job:execute(job[1].decode())
+def main():
+ with Session() as db:
+  for id in db.scalars(select(SpectralRun.id).where(SpectralRun.status.in_(["queued","running"]))):client.lpush("jitter-spectrum:jobs",id)
+ while True:
+  heartbeat.touch();job=client.brpop("jitter-spectrum:jobs",timeout=1)
+  if job:execute(job[1].decode())
+if __name__=="__main__":main()

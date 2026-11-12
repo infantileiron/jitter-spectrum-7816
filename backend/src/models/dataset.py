@@ -7,4 +7,5 @@ class SignalDataset(Base):
  name:Mapped[str]=mapped_column(String,unique=True)
  source:Mapped[str]=mapped_column(String)
  points:Mapped[list]=mapped_column(JSON)
+ version:Mapped[int]=mapped_column(Integer,default=1)
  created_at:Mapped[str]=mapped_column(String)

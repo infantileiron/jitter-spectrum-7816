@@ -5,4 +5,5 @@ from .study import SpectralStudy
 from .run import SpectralRun
 from .review import PeriodReview
 from .report import Report
+from .backfill import BackfillBatch
 from .audit import AuditEvent

@@ -1,3 +1,3 @@
 import * as datasets from '../api/datasets';import * as windows from '../api/windows';import * as studies from '../api/studies';import * as runs from '../api/runs';import * as reviews from '../api/reviews';import * as reports from '../api/reports';import * as audit from '../api/audit';
-export async function loadWorkspace(){const [d,w,s,r,v,p,a]=await Promise.all([datasets.list(),windows.list(),studies.list(),runs.list(),reviews.list(),reports.list(),audit.list()]);return {datasets:d,windows:w,studies:s,runs:r,reviews:v,reports:p,audit:a}}
+export async function loadWorkspace(){const [d,w,s,r,v,p,a,b]=await Promise.all([datasets.list(),windows.list(),studies.list(),runs.list(),reviews.list(),reports.list(),audit.list(),datasets.backfills()]);return {datasets:d,windows:w,studies:s,runs:r,reviews:v,reports:p,audit:a,backfills:b}}
 export type Workspace=Awaited<ReturnType<typeof loadWorkspace>>;

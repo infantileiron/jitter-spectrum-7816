@@ -14,7 +14,7 @@ def create(db,payload,user):
 def export(db,id):
  report=db.get(Report,id)
  if not report:raise HTTPException(404,"报告不存在")
- result=require_completed(db,report.run_id).result;buf=io.StringIO();writer=csv.DictWriter(buf,["method","frequency_per_minute","period_minutes","power","units"]);writer.writeheader()
+ run=require_completed(db,report.run_id);result=run.result;buf=io.StringIO();writer=csv.DictWriter(buf,["method","frequency_per_minute","period_minutes","power","units","dataset_version"]);writer.writeheader()
  for method in ("fft","ls"):
-  for peak in result[method]["peaks"]:writer.writerow({"method":method,**peak,"units":result[method]["units"]})
+  for peak in result[method]["peaks"]:writer.writerow({"method":method,**peak,"units":result[method]["units"],"dataset_version":run.dataset_version})
  return "\ufeff"+buf.getvalue()
