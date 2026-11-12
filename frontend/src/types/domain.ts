@@ -1,0 +1,14 @@
+export interface User{email:string;role:string}
+export interface Point{link_id:string;time_minutes:number;jitter_ms:number}
+export interface Dataset{id:string;name:string;source:string;points:Point[];created_at:string}
+export interface Window{id:string;name:string;dataset_id:string;link_id:string;start_minutes:number;end_minutes:number;point_count:number;created_at:string}
+export interface Study{id:string;name:string;window_id:string;detrend:string;fft_window:string;min_frequency:number;max_frequency:number;frequency_points:number;created_at:string}
+export interface Peak{frequency_per_minute:number;period_minutes:number;power:number}
+export interface Spectrum{available:boolean;reason?:string;frequencies:number[];power:number[];peaks:Peak[];units:string;nyquist?:number|null;frequency_spacing?:number;window?:string;window_energy?:number;full_psd_integral_ms2?:number;window_normalized_mean_square_ms2?:number;normalization?:string;search_strategy?:string}
+export interface Observation{time_minutes:number;jitter_ms:number;residual_ms:number}
+export interface Fit{components:{frequency_per_minute:number;period_minutes:number;amplitude_ms:number;phase_radians:number}[];fitted_ms:number[];offset_ms:number;slope_ms_per_minute:number;rmse_ms:number;r_squared:number|null;phase_origin_minutes:number;phase_convention:string}
+export interface Result{meta:{n:number;start_minutes:number;end_minutes:number;span_minutes:number;median_interval_minutes:number;min_interval_minutes:number;max_interval_minutes:number;regular:boolean;fft_nyquist:number|null;detrend:string;removed_offset_ms:number;removed_slope_ms_per_minute:number;residual_variance_ms2:number;phase_origin_minutes:number};fft:Spectrum;ls:Spectrum;fit:Fit;observations:Observation[];frequency_min:number;frequency_max:number;frequency_points:number;checksum:string;assumptions:string[]}
+export interface Run{id:string;study_id:string;status:string;result:Result;error:string;created_at:string}
+export interface Review{id:string;run_id:string;note:string;decision:string;author:string;created_at:string}
+export interface Report{id:string;run_id:string;title:string;published_by:string;created_at:string}
+export interface Audit{id:string;actor:string;action:string;status:number;created_at:string}

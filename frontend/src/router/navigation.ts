@@ -1,0 +1,1 @@
+export const navigation=[{id:'overview',label:'观测总览',code:'01'},{id:'datasets',label:'带时间观测',code:'02'},{id:'windows',label:'采样窗口',code:'03'},{id:'studies',label:'频谱设置',code:'04'},{id:'results',label:'周期与幅相',code:'05'},{id:'reviews',label:'周期复核',code:'06'}];
